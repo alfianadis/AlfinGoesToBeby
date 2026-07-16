@@ -8,36 +8,27 @@ import {
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 
-const ALLOWED_EMAILS = (import.meta.env.VITE_ALLOWED_EMAILS ?? '')
-  .split(',')
-  .map((e: string) => e.trim())
-  .filter(Boolean)
+const SHARED_EMAIL = import.meta.env.VITE_SUPABASE_SHARED_EMAIL as string
+const SHARED_PASSWORD = import.meta.env.VITE_SUPABASE_SHARED_PASSWORD as string
+const APP_PIN = import.meta.env.VITE_APP_PIN as string
 
 interface AuthContextValue {
   session: Session | null
   user: User | null
   loading: boolean
-  signInWithGoogle: () => Promise<void>
+  signInWithPin: (pin: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
-  rejected: boolean
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
-function isAllowed(email: string | undefined): boolean {
-  return !!email && ALLOWED_EMAILS.includes(email)
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
-  const [rejected, setRejected] = useState(false)
 
   useEffect(() => {
-    // supabase-js (detectSessionInUrl) auto-parses the OAuth hash fragment
-    // on init, then fires onAuthStateChange. We just react to it here.
     supabase.auth.getSession().then(({ data: { session: s } }) => {
-      applySession(s)
+      setSession(s)
       setLoading(false)
     })
 
@@ -48,42 +39,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(null)
         return
       }
-      applySession(s)
+      setSession(s)
     })
-
-    function applySession(s: Session | null) {
-      if (!s) return
-      if (isAllowed(s.user.email)) {
-        setRejected(false)
-        setSession(s)
-        // clean OAuth hash/query from URL
-        if (window.location.hash || window.location.search) {
-          window.history.replaceState({}, '', window.location.pathname)
-        }
-      } else {
-        setRejected(true)
-        setSession(null)
-        supabase.auth.signOut()
-      }
-    }
 
     return () => subscription.unsubscribe()
   }, [])
 
-  async function signInWithGoogle() {
-    setRejected(false)
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: window.location.origin,
-      },
+  async function signInWithPin(pin: string): Promise<{ error: string | null }> {
+    if (pin !== APP_PIN) {
+      return { error: 'PIN salah. Coba lagi.' }
+    }
+    const { error } = await supabase.auth.signInWithPassword({
+      email: SHARED_EMAIL,
+      password: SHARED_PASSWORD,
     })
+    if (error) return { error: 'Gagal masuk. Hubungi admin.' }
+    return { error: null }
   }
 
   async function signOut() {
     await supabase.auth.signOut()
     setSession(null)
-    setRejected(false)
   }
 
   return (
@@ -92,9 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         session,
         user: session?.user ?? null,
         loading,
-        signInWithGoogle,
+        signInWithPin,
         signOut,
-        rejected,
       }}
     >
       {children}
