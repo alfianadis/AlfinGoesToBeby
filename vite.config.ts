@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'pwa-192x192.svg', 'pwa-512x512.svg'],
       manifest: {
-        name: 'Wedding Tracker — Awwal & Ana',
+        name: 'Wedding Tracker — Alvin & Beby',
         short_name: 'Wedding Tracker',
-        description: 'Aplikasi persiapan pernikahan Awwal & Ana',
+        description: 'Aplikasi persiapan pernikahan Alvin & Beby',
         theme_color: '#7a2e4a',
         background_color: '#fdfaf8',
         display: 'standalone',

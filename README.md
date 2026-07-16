@@ -212,12 +212,11 @@ npm run lint     # ESLint check
 
 ## Credit
 
-made with ❤️ by **Awwal**
+made with ❤️ by **Botang**
 
-[![Instagram](https://img.shields.io/badge/Instagram-@awwal__pituduh-E4405F?logo=instagram&logoColor=white)](https://instagram.com/awwal_pituduh)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-awwalpituduh-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/awwalpituduh/)
+[![Instagram](https://img.shields.io/badge/Instagram-@alvinghzl-E4405F?logo=instagram&logoColor=white)](https://instagram.com/alvinghzl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-alfianadis-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alfianadisseptianto/)
 [![GitHub](https://img.shields.io/badge/GitHub-eLsavation-181717?logo=github&logoColor=white)](https://github.com/eLsavation)
-[![Trakteer](https://img.shields.io/badge/Trakteer-awwal.dev-FF6B35?logo=buymeacoffee&logoColor=white)](https://trakteer.id/awwal.dev)
 
 ---
 

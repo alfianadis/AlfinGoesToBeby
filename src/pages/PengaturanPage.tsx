@@ -126,7 +126,7 @@ export function PengaturanPage() {
                 <Label htmlFor="pasangan-1">Pasangan 1 (CPP)</Label>
                 <Input
                   id="pasangan-1"
-                  placeholder="mis. Awwal"
+                  placeholder="mis. Alvin"
                   value={pasangan1}
                   onChange={(e) => setPasangan1(e.target.value)}
                   disabled={loading}
@@ -136,7 +136,7 @@ export function PengaturanPage() {
                 <Label htmlFor="pasangan-2">Pasangan 2 (CPW)</Label>
                 <Input
                   id="pasangan-2"
-                  placeholder="mis. Ana"
+                  placeholder="mis. Beby"
                   value={pasangan2}
                   onChange={(e) => setPasangan2(e.target.value)}
                   disabled={loading}
