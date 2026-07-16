@@ -1,14 +1,18 @@
 import { Heart, Lock } from 'lucide-react'
 import { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export function LoginPage() {
-  const { signInWithPin } = useAuth()
+  const { signInWithPin, session } = useAuth()
+  const navigate = useNavigate()
   const [pin, setPin] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
+  if (session) return <Navigate to="/" replace />
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -18,6 +22,8 @@ export function LoginPage() {
     const result = await signInWithPin(pin)
     if (result.error) {
       setError(result.error)
+    } else {
+      navigate('/', { replace: true })
     }
     setLoading(false)
   }

@@ -157,23 +157,23 @@ export function DashboardPage() {
             value={formatRupiah(saldo)}
             icon={Wallet}
             accent={saldo >= 0 ? 'green' : 'rose'}
-            hint={`Masuk ${formatRupiah(agg!.pemasukan)}`}
+            hint={`Masuk ${formatRupiah(agg?.pemasukan ?? 0)}`}
           />
           <StatCard
             label="Pengeluaran"
-            value={formatRupiah(agg!.pengeluaran)}
+            value={formatRupiah(agg?.pengeluaran ?? 0)}
             icon={TrendingDown}
             accent="rose"
           />
           <StatCard
             label="Pemasukan"
-            value={formatRupiah(agg!.pemasukan)}
+            value={formatRupiah(agg?.pemasukan ?? 0)}
             icon={TrendingUp}
             accent="green"
           />
           <StatCard
             label="Vendor Dipesan"
-            value={`${agg!.vendorDeal}/${agg!.vendorTotal}`}
+            value={`${agg?.vendorDeal ?? 0}/${agg?.vendorTotal ?? 0}`}
             icon={Store}
             accent="blue"
             hint="Sudah deal / total"
