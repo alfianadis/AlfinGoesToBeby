@@ -18,7 +18,6 @@ import {
   Menu,
   X,
   Settings,
-  Coffee,
 } from 'lucide-react'
 import { useAuth } from '@/lib/auth'
 import { useConfig } from '@/hooks/useConfig'
